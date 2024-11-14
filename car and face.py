@@ -92,10 +92,15 @@ class CPabe_BSW07(ABEnc):
             A *= (pair(ct['Cy'][j], sk['Dj'][k]) / pair(sk['Djp'][k], ct['Cyp'][j])) ** z[j]
         return ct['C_tilde'] / (pair(ct['C'], sk['D']) / A)
 
-# Function to create CSRT tracker
 def create_tracker_csrt():
-    # For OpenCV 4.x with contrib modules
-    return cv2.legacy.TrackerCSRT_create()
+    if hasattr(cv2, 'legacy'):
+        return cv2.legacy.TrackerCSRT_create()  # For OpenCV 4.5.2+
+    elif hasattr(cv2, 'TrackerCSRT_create'):
+        return cv2.TrackerCSRT_create()        # For older versions
+    else:
+        raise AttributeError("TrackerCSRT is not available in your OpenCV installation.")
+
+
 
 # Tkinter GUI Functions
 def select_video():
