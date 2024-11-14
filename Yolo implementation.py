@@ -91,14 +91,6 @@ def initialize_cpabe():
 
 initialize_cpabe()
 
-def toggle_blur_faces():
-    global blur_faces
-    blur_faces = not blur_faces
-
-def toggle_blur_plates():
-    global blur_plates
-    blur_plates = not blur_plates
-
 def select_and_process_video():
     global blur_faces, blur_plates, pk, mk, hash_map, ciphertext_map  # Declare global variables at the start of the function
     
@@ -250,15 +242,10 @@ def start_video_processing():
 if __name__ == "__main__":
     root = Tk()
     root.title("Video Processing Tool")
+    root.protocol("WM_DELETE_WINDOW", root.quit)
 
     select_button = Button(root, text="Select and Process Video", command=start_video_processing)
     select_button.pack(pady=10)
-
-    toggle_face_button = Button(root, text="Toggle Blur/Unblur Faces", command=toggle_blur_faces)
-    toggle_face_button.pack(pady=10)
-
-    toggle_plate_button = Button(root, text="Toggle Blur/Unblur Plates", command=toggle_blur_plates)
-    toggle_plate_button.pack(pady=10)
 
     unblur_plate_button = Button(root, text="Unblur Number Plate", command=unblur_number_plate)
     unblur_plate_button.pack(pady=10)
